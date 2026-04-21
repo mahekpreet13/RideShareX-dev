@@ -76,7 +76,7 @@ function CreateRide() {
       setMessage("Ride created successfully");
 
       setTimeout(() => {
-        navigate("/");
+        navigate("/rides");
       }, 800);
     } catch (error) {
       console.error(error);

@@ -70,7 +70,7 @@ function MyRequests() {
             <h3 className="text-lg font-medium text-foreground">No requests yet</h3>
             <p className="text-muted-foreground mt-1">When you book a ride, it will appear here.</p>
             <button 
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/rides")}
               className="mt-6 px-6 py-2 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors"
             >
               Browse Rides

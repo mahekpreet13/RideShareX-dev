@@ -1,6 +1,7 @@
 // import logo from './logo.svg';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import NoPage from './pages/NoPage';
 import UserProfile from './pages/UserProfile';
@@ -17,7 +18,8 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route index element={<Home />} />
+        <Route index element={<LandingPage />} />
+        <Route path="/rides" element={<Home />} />
         <Route path='/profile' element={<UserProfile />} />
       
         <Route path='/login' element={<Login />} />

@@ -32,16 +32,15 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+        <Link to={token ? "/rides" : "/"} className="flex items-center gap-2 transition-opacity hover:opacity-80">
           <img src="/logo.svg" alt="Logo" className="w-8 h-8" />
           <span className="font-bold text-xl tracking-tight text-primary">RideShareX</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
-          <NavLink to="/">Home</NavLink>
-          
           {!token && (
             <>
+              <NavLink to="/">Home</NavLink>
               <NavLink to="/login">Login</NavLink>
               <NavLink to="/register">Register</NavLink>
             </>
@@ -49,6 +48,7 @@ const Header = () => {
 
           {token && (
             <>
+              <NavLink to="/rides">Dashboard</NavLink>
               <NavLink to="/create-ride">Create</NavLink>
               <NavLink to="/my-requests">My Requests</NavLink>
               <NavLink to="/driver">Driver Panel</NavLink>

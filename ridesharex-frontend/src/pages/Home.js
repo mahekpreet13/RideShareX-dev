@@ -7,8 +7,14 @@ function Home() {
   const [rideRequestInfo, setRideRequestInfo] = useState({});
   const [paidRequests, setPaidRequests] = useState([]);
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
     const loadData = async () => {
       try {
         const ridesData = await RideService.getAvailableRides();

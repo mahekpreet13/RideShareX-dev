@@ -8,3 +8,5 @@ security.jwt.secret=YourSecretCode
 security.jwt.expiration=3600000
 security.jwt.header=Header
 security.jwt.prefix=Prefix
+
+ors.api.key=YOUR_API_KEY

@@ -229,7 +229,7 @@ function DriverMap() {
 
           <div className="relative h-[60vh] min-h-[400px] w-full bg-muted">
             <MapContainer
-              center={driverLocation || userLocation || [17.385, 78.4867]}
+              center={driverLocation || userLocation || [30.638, 76.634]}
               whenCreated={(map) => (mapRef.current = map)}
               zoom={13}
               className="h-full w-full z-0"
