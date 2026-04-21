@@ -184,4 +184,5 @@ class RideService {
   }
 }
 
-export default new RideService();
+const rideServiceInstance = new RideService();
+export default rideServiceInstance;

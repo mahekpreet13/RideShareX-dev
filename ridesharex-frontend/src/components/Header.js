@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username");
 
@@ -12,57 +13,68 @@ const Header = () => {
     navigate("/login");
   };
 
+  const NavLink = ({ to, children }) => {
+    const isActive = location.pathname === to;
+    return (
+      <Link
+        to={to}
+        className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+          isActive
+            ? "bg-primary/10 text-primary"
+            : "text-foreground/70 hover:text-foreground hover:bg-muted"
+        }`}
+      >
+        {children}
+      </Link>
+    );
+  };
+
   return (
-    <header style={{
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "12px 24px",
-      background: "#4f46e5",
-      color: "white"
-    }}>
-     <div style={{ display: "flex", alignItems: "center", gap: "10px", fontWeight: "bold" }}>
-        <img src="/logo.svg" alt="Logo" style={{ width: "30px", height: "30px" }} />
-        RideShareX
-      </div>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+          <img src="/logo.svg" alt="Logo" className="w-8 h-8" />
+          <span className="font-bold text-xl tracking-tight text-primary">RideShareX</span>
+        </Link>
 
-      <div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
-        <Link
-  to="/"
-  style={{ color: "white", textDecoration: "none", opacity: 0.9 }}
->
-  Home
-</Link>
+        <nav className="hidden md:flex items-center gap-1">
+          <NavLink to="/">Home</NavLink>
+          
+          {!token && (
+            <>
+              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/register">Register</NavLink>
+            </>
+          )}
 
-        {!token && <Link to="/login" style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>Login</Link>}
-        {!token && <Link to="/register" style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>Register</Link>}
+          {token && (
+            <>
+              <NavLink to="/create-ride">Create</NavLink>
+              <NavLink to="/my-requests">My Requests</NavLink>
+              <NavLink to="/driver">Driver Panel</NavLink>
+              <NavLink to="/fare">Fare</NavLink>
+              {username && (
+                <NavLink to={`/driver-map/${username}`}>Driver Map</NavLink>
+              )}
+            </>
+          )}
+        </nav>
 
-        {token && <Link to="/create-ride" style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>Create</Link>}
-        {token && <Link to="/my-requests" style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>My Requests</Link>}
-        {token && <Link to="/driver" style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>Driver</Link>}
-        {token && <Link to="/fare" style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>Fare</Link>}
-        
-        {token && username && (
-  <Link to={`/driver-map/${username}`} style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>
-    Driver Map
-  </Link>
-)}
-        
-        {token && <span>{username}</span>}
-        {token && (
-          <button
-            onClick={handleLogout}
-            style={{
-              background: "white",
-              color: "#4f46e5",
-              border: "none",
-              padding: "6px 10px",
-              borderRadius: "6px"
-            }}
-          >
-            Logout
-          </button>
-        )}
+        <div className="flex items-center gap-4">
+          {token && (
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-medium text-foreground/80">
+                Hi, <span className="text-primary font-bold">{username}</span>
+              </span>
+              <button
+                onClick={handleLogout}
+                className="bg-destructive/10 text-destructive hover:bg-destructive hover:text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
